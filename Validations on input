@@ -1,0 +1,73 @@
+#pragma once
+#include<iostream>
+#include<string>
+#include<regex>
+#include"Heart Rate.h"
+
+using namespace std;
+string temp_day;
+int real_day, month, year;
+
+const string regex_for_name = ("[a-zA-Z]+");
+const string regex_for_birth_year = ("^[0-9]+$");
+const string regex_for_birth_month = ("^(1[0-2]|[1-9])$");
+const string regex_for_birth_day = ("^(0?[1-9]|[12][0-9]|3[01])$");
+const string regex_for_31_days_month = ("^(?:[1-9]|[12]\\d|3[0-1])$");;
+const string regex_for_30_days_month = ("^(?:[1-9]|1\\d|2[0-9]|30)$");;
+const string regex_for_28_days_month = ("^(?:[1-9]|1\\d|2[0-8])$");;
+const string regex_for_29_days_month = ("^(?:[1-9]|1\\d|2[0-9])$");
+bool isValidValidation(const string& input, const string& validationRegex, int maxLength) {
+    if (maxLength != -1 && input.length() > maxLength)
+        return false;
+
+    const regex Validation_Regex(validationRegex);
+    return regex_match(input, Validation_Regex);
+}
+
+// Functions for taking input from user 
+
+string inputStringFromUser(const string& name, const string& examples, const string& validationRegex, int maxLength) {
+    string input;
+    cout << "Enter " << name << ": ";
+    getline(cin, input);
+    while (!isValidValidation(input, validationRegex, maxLength)) {
+        cout << "\nInvalid " << name << " \n . Please enter a valid " << name << " like ---> " << examples << "\nEnter " << name << " again : ";
+        getline(cin, input);
+    }
+    return input;
+}
+
+int input_day(const string& validationRegex, int maxLength, int day) {
+    string input;
+    int final;
+    cout << "Enter day of birth : ";
+    getline(cin, input);
+    while (!isValidValidation(input, validationRegex, maxLength)) {
+        cout << "\nInvalid Day "" \n . Please enter a valid date \n The limit for date input is only for " << day << " days maximum : ";
+        getline(cin, input);
+    }
+    final = stoi(input);
+    return final;
+}
+int input_year_Of_Birth_FromUser(const string& validationRegex, int maxLength) {
+    string input;
+    cout << "Enter year of birth : ";
+    getline(cin, input);
+    while (!isValidValidation(input, validationRegex, maxLength)) {
+        cout << "\nInvalid year " " \n . Please enter a valid year like ---> 2001,2007 etc \nEnter year again : ";
+        getline(cin, input);
+    }
+    year = stoi(input);
+    return year;
+}
+int input_month_Of_Birth_FromUser(const string& validationRegex, int maxLength) {
+    string input;
+    cout << "Enter month of birth : ";
+    getline(cin, input);
+    while (!isValidValidation(input, validationRegex, maxLength)) {
+        cout << "\nInvalid month " " \n . Please enter a month  like ---> 2,3,4,etc  \nEnter month again : ";
+        getline(cin, input);
+    }
+    year = stoi(input);
+    return year;
+}
