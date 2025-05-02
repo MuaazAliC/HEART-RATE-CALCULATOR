@@ -1,0 +1,64 @@
+#include <iostream>
+#include<string>
+#include"Heart Rate.h"
+#include"Validations.h"
+
+using namespace std;
+
+
+int main() {
+    string first_name, last_name,temp_B_M,temp_B_D,temp_B_Y;
+    int birth_month, birth_day, birth_year;
+
+    first_name = inputStringFromUser("First Name", "Muaaz,Haider , etc ", regex_for_name, 10);
+
+    last_name = inputStringFromUser("Last Name", "Ali,Tahir,etc ", regex_for_name, 17);
+
+   birth_year= input_year_Of_Birth_FromUser(regex_for_birth_year, 4);
+
+   birth_month = input_month_Of_Birth_FromUser(regex_for_birth_month, 2);
+   if (birth_year % 4 == 0) {
+       if (birth_month == 1 || birth_month == 3 || birth_month == 5 || birth_month == 7 || birth_month == 8 || birth_month == 10 || birth_month == 12) {
+           birth_day = input_day(regex_for_31_days_month, 2, 31);
+       }
+       else if (birth_month == 4 || birth_month == 6 || birth_month == 9 || birth_month == 11) {
+           birth_day = input_day(regex_for_30_days_month, 2, 30);
+       }
+       else if (birth_month == 2) {
+           birth_day = input_day(regex_for_29_days_month, 2, 29);
+       }
+   }
+   if (birth_year % 4 != 0) {
+       if (birth_month == 1 || birth_month == 3 || birth_month == 5 || birth_month == 7 || birth_month == 8 || birth_month == 10 || birth_month == 12) {
+           birth_day = input_day(regex_for_31_days_month, 2, 31);
+       }
+       else if (birth_month == 4 || birth_month == 6 || birth_month == 9 || birth_month == 11) {
+           birth_day = input_day(regex_for_30_days_month, 2, 30);
+       }
+       else if (birth_month == 2) {
+           birth_day = input_day(regex_for_28_days_month, 2, 28);
+       }
+   }
+  
+    HeartRates person(first_name, last_name, birth_month, birth_day, birth_year);
+
+    int current_year = 2025
+        ;
+    int age = person.calculateAge(current_year);
+    int  max_heart_rate = person.calculateMaxHeartRate();
+    pair<int, int> target_heart_rate = person.calculateTargetHeartRate();
+
+    cout << "\nInformation:" << endl;
+    cout << "First Name: " << person.getFirstName() << endl;
+    cout << "Last Name: " << person.getLastName() << endl;
+    cout << "Date of Birth: " << person.getBirthMonth() << "/" << person.getBirthDay() << "/" << person.getBirthYear() << endl;
+
+    cout << "\nCalculations:" << endl;
+    cout << "Age: " << age << " years" << endl;
+    cout << "Maximum Heart Rate: " << max_heart_rate << " bpm" << endl;
+    cout << "Target Heart Rate Range: " << target_heart_rate.first << " bpm - " << target_heart_rate.second << " bpm" << endl;
+
+    
+
+    return 0;
+}
