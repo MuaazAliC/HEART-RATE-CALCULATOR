@@ -1,0 +1,80 @@
+#pragma once
+#include<iostream>
+#include<string>
+#include"Validations.h"
+
+using namespace std;
+
+class HeartRates {
+private:
+    string first_name;
+    string last_name;
+    int birth_month;
+    int birth_day;
+    int birth_year;
+
+public:
+    HeartRates(string first, string last, int month, int day, int year) {
+        first_name = first;
+        last_name = last;
+        birth_month = month;
+        birth_day = day;
+        birth_year = year;
+    }
+
+    // Setter and Getter methods for attributes
+    void setFirstName(string first) {
+        first_name = first;
+    }
+
+    string getFirstName() {
+        return first_name;
+    }
+
+    void setLastName(string last) {
+        last_name = last;
+    }
+
+    string getLastName() {
+        return last_name;
+    }
+
+    void setBirthMonth(int month) {
+        birth_month = month;
+    }
+
+    int getBirthMonth() {
+        return birth_month;
+    }
+
+    void setBirthDay(int day) {
+        birth_day = day;
+    }
+
+    int getBirthDay() {
+        return birth_day;
+    }
+
+    void setBirthYear(int year) {
+        birth_year = year;
+    }
+
+    int getBirthYear() {
+        return birth_year;
+    }
+
+    int calculateAge(int currentYear) {
+        return currentYear - birth_year;
+    }
+
+    int calculateMaxHeartRate() {
+        return 220 - calculateAge(2023);
+    }                                                
+
+    pair<int, int> calculateTargetHeartRate() {
+        int max_heart_rate = calculateMaxHeartRate();
+        int min_target_rate = max_heart_rate * 0.5;
+        int max_target_rate = max_heart_rate * 0.85;
+        return make_pair(min_target_rate, max_target_rate);
+    }
+};
