@@ -68,6 +68,7 @@ int input_month_Of_Birth_FromUser(const string& validationRegex, int maxLength) 
         cout << "\nInvalid month " " \n . Please enter a month  like ---> 2,3,4,etc  \nEnter month again : ";
         getline(cin, input);
     }
-    year = stoi(input);
+    year = stoi(input); //string to integer convertor 
+
     return year;
 }
